@@ -1,5 +1,7 @@
 # Apple Release Notifier
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/baturtulek/apple-release-notifier)](https://goreportcard.com/report/github.com/baturtulek/apple-release-notifier)
+
 Simple Apple Software Release Notifier, sends an email containing release information.
 
 ## Usage
@@ -9,11 +11,11 @@ Simple Apple Software Release Notifier, sends an email containing release inform
 -   Create .env file on the root folder which contains following variables
 
     ```
-    SENDER_MAIL_SMTP_HOST=<SMPT_HOST>
+    SENDER_MAIL_SMTP_HOST=<SMTP_HOST>
     SENDER_MAIL_ADDRESS=<MAIL_ADDRESS>
     SENDER_MAIL_NAME=<MAIL_ADDRESS_DISPLAY_NAME>
     SENDER_MAIL_PASSWORD=<MAIL_ADDRESS_PASSWORD>
-    SENDER_MAIL_SMTP_PORT=<SMPT_PORT>
+    SENDER_MAIL_SMTP_PORT=<SMTP_PORT>
     ```
 
 -   Run main file
