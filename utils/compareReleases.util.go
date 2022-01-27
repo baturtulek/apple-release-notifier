@@ -2,6 +2,7 @@ package utils
 
 import "github.com/baturtulek/apple-release-notifier/types"
 
+// Compares Old Release Data From the File and New Release Data From the Web Page
 func CompareOldReleaseDataWithNewReleaseData(oldReleaseArr []types.Release, newReleaseArr []types.Release) []types.Release {
 	var releasesNotExistInOldReleases []types.Release
 

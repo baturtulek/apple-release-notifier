@@ -12,41 +12,43 @@ import (
 	"github.com/baturtulek/apple-release-notifier/types"
 )
 
+// Read Last Crawled Release Data From the File
 func ReadLastReleaseFromFile() []types.Release {
 	var lastReleases []types.Release
 
 	if isLastReleaseFileExists() {
 		jsonFile, err := os.Open(constants.LAST_CRAWL_RELEASES_FILE)
 		if err != nil {
-			log.Fatal("ERROR: Open File: ", err)
+			log.Fatal("ERROR - ReadLastReleaseFromFile - File Open: ", err)
 		}
 		defer jsonFile.Close()
 
 		jsonData, err := ioutil.ReadAll(jsonFile)
 		if err != nil {
-			log.Fatal("ERROR: Read JSON File: ", err)
+			log.Fatal("ERROR - ReadLastReleaseFromFile - JSON", err)
 		}
 
 		if err := json.Unmarshal(jsonData, &lastReleases); err != nil {
-			log.Fatal("ERROR: Failed to Unmarshal JSON File: ", err)
-
+			log.Fatal("ERROR - ReadLastReleaseFromFile - UnMarshal: ", err)
 		}
 	}
 	return lastReleases
 }
 
+// Write New Release To the File
 func WriteNewReleaseDataToFile(lines []types.Release) {
 	file, _ := json.MarshalIndent(lines, "", "  ")
 	_ = ioutil.WriteFile(constants.LAST_CRAWL_RELEASES_FILE, file, 0644)
 	log.Print("Last Release file updated.")
 }
 
+// Read Mail Addresses of the Clients
 func ReadMailContactsFromFile() []string {
 	var mailContacts []string
 
 	file, err := os.Open(constants.MAIL_CONTACTS_FILE)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR - ReadMailContactsFromFile - File Open: ", err)
 	}
 	defer file.Close()
 
@@ -56,7 +58,7 @@ func ReadMailContactsFromFile() []string {
 	}
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR - ReadMailContactsFromFile - Scan File: ", err)
 	}
 
 	return mailContacts

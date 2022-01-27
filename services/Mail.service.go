@@ -9,12 +9,13 @@ import (
 	mail "github.com/xhit/go-simple-mail/v2"
 )
 
+// Sends Mail to Clients About New Release Informations
 func SendMail(newReleasesNotExistsInOldReleases []types.Release) {
 	smtpClient := getSmtpClient()
 	email := prepareMail(newReleasesNotExistsInOldReleases)
 	err := email.Send(smtpClient)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR - SendMail: ", err)
 	}
 	log.Print("Mail sent to contacts.")
 }
@@ -39,7 +40,7 @@ func getSmtpClient() *mail.SMTPClient {
 	server := getSmtpServer()
 	smtpClient, err := server.Connect()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR - getSmtpClient - SMPT Connect: ", err)
 	}
 	return smtpClient
 }

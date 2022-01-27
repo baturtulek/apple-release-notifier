@@ -9,20 +9,23 @@ import (
 	"github.com/baturtulek/apple-release-notifier/types"
 )
 
-func getPlatformDataFromString(str string) string {
-	value := strings.IndexAny(str, "0123456789")
-	if value >= 0 && value <= len(str) {
-		return str[:value]
-	}
-	return str
-}
+// Parses Page Content
+func ParsePageContent(response *http.Response) []types.Release {
+	var releaseArr []types.Release
 
-func getVersionDataFromString(str string) string {
-	value := strings.IndexAny(str, "(")
-	if value >= 0 && value <= len(str) {
-		return str[:value]
+	doc, err := goquery.NewDocumentFromReader(response.Body)
+
+	if err != nil {
+		log.Fatal("ERROR - ParsePageContent - Document Read: ", err)
 	}
-	return str
+
+	doc.Find(".article-title").Each(func(i int, s *goquery.Selection) {
+		release := s.Find("h2").Text()
+		releaseObj := parseAndCreateReleaseObject(release)
+		releaseArr = append(releaseArr, releaseObj)
+	})
+
+	return releaseArr
 }
 
 func parseAndCreateReleaseObject(release string) types.Release {
@@ -41,20 +44,18 @@ func parseAndCreateReleaseObject(release string) types.Release {
 	return releaseObj
 }
 
-func ParsePageContent(response *http.Response) []types.Release {
-	var releaseArr []types.Release
-
-	doc, err := goquery.NewDocumentFromReader(response.Body)
-
-	if err != nil {
-		log.Fatal(err)
+func getPlatformDataFromString(str string) string {
+	value := strings.IndexAny(str, "0123456789")
+	if value >= 0 && value <= len(str) {
+		return str[:value]
 	}
+	return str
+}
 
-	doc.Find(".article-title").Each(func(i int, s *goquery.Selection) {
-		release := s.Find("h2").Text()
-		releaseObj := parseAndCreateReleaseObject(release)
-		releaseArr = append(releaseArr, releaseObj)
-	})
-
-	return releaseArr
+func getVersionDataFromString(str string) string {
+	value := strings.IndexAny(str, "(")
+	if value >= 0 && value <= len(str) {
+		return str[:value]
+	}
+	return str
 }
