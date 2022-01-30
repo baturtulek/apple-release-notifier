@@ -22,15 +22,16 @@ Simple Apple Software Release Notifier, sends an email containing release inform
     ```
     go run main.go
     ```
--   This app is based on web scrapping, so you may want to use with [Cron](https://en.wikipedia.org/wiki/Cron).
+-   This app is based on web scrapping, so you may want to use with [CRON](https://en.wikipedia.org/wiki/Cron).
     -   Build the app
         ```
         go build
         ```
-    -   Add to your crontab file. This is just an example. You can change the frequency as you want.
+    -   Add the following lines to your crontab file. This is just an example. You can change the frequency as you want.
         ```
-        # This will run app on every hour.
-        0 * * * * <./PATH_TO_APP/apple-release-notifier>
+        # Apple generally releases software from 20:00 to 23:00 on weekdays. (In Istanbul Time - UTC +3)
+        # This will run the app every 15 minutes between 20:00 to 23:00 on weekdays.
+        */15 20-23 * * 1-5 <./PATH_TO_APP/apple-release-notifier>
         ```
 
 ## Author
