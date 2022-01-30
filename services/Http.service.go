@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Sends HTTP Request to Web Page and Returns the Response
+// GetPageContentFromURL Sends HTTP Request to Web Page and Returns the Response
 func GetPageContentFromURL(url string) *http.Response {
 	response, err := http.Get(url)
 

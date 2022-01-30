@@ -1,6 +1,6 @@
 package types
 
-// Single Release
+// Release Single Release
 type Release struct {
 	Platform string `json:"platform"`
 	Version  string `json:"version"`

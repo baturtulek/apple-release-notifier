@@ -12,7 +12,7 @@ import (
 	"github.com/baturtulek/apple-release-notifier/types"
 )
 
-// Read Last Crawled Release Data From the File
+// ReadLastReleaseFromFile Read Last Crawled Release Data From the File
 func ReadLastReleaseFromFile() []types.Release {
 	var lastReleases []types.Release
 
@@ -35,14 +35,14 @@ func ReadLastReleaseFromFile() []types.Release {
 	return lastReleases
 }
 
-// Write New Release To the File
+// WriteNewReleaseDataToFile Write New Release To the File
 func WriteNewReleaseDataToFile(lines []types.Release) {
 	file, _ := json.MarshalIndent(lines, "", "  ")
 	_ = ioutil.WriteFile(constants.LAST_CRAWL_RELEASES_FILE, file, 0644)
 	log.Print("Last Release file updated.")
 }
 
-// Read Mail Addresses of the Clients
+// ReadMailContactsFromFile Read Mail Addresses of the Clients
 func ReadMailContactsFromFile() []string {
 	var mailContacts []string
 

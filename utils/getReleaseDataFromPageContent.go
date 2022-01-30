@@ -9,7 +9,7 @@ import (
 	"github.com/baturtulek/apple-release-notifier/types"
 )
 
-// Parses Page Content
+// ParsePageContent Parses Page Content
 func ParsePageContent(response *http.Response) []types.Release {
 	var releaseArr []types.Release
 
